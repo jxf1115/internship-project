@@ -15,14 +15,16 @@ def browser_init(context):
     # service = Service(executable_path='./chromedriver')
     # context.driver = webdriver.Chrome(service=service)
 
-    options = Options()
-    options.add_argument('--headless')
-    service = Service(executable_path='./chromedriver')
-    context.driver = webdriver.Chrome(
-        options=options,
-        service=service
-    )
-    context.driver.set_window_size(1920, 1080)
+
+    # Headless mode
+    #options = Options()
+    #options.add_argument('--headless')
+    #service = Service(executable_path='./chromedriver')
+    #context.driver = webdriver.Chrome(
+        #options=options,
+        #service=service
+    #)
+    #context.driver.set_window_size(1920, 1080)
 
     ### FIREFOX ###
     #service = Service(executable_path='./geckodriver')
@@ -30,21 +32,21 @@ def browser_init(context):
 
     ### BROWSERSTACK ###
 
-    # bs_user = 'juliofernandez_Lq6Xy8'
-    # bs_key = 'arKeUGsZnvyyWSiWSrVQ'
-    # url = f'http://{bs_user}:{bs_key}@hub-cloud.browserstack.com/wd/hub'
-    #
-    # options = Options()
-    # bstack_options = {
-    #     'os': 'OS X',
-    #     'osVersion': '10',
-    #     'browserName': 'Chrome',
-    #     'sessionName': scenario_name
-    # }
-    # options.set_capability('bstack:options', bstack_options)
-    # context.driver = webdriver.Remote(command_executor=url, options=options)
+    bs_user = 'juliofernandez_Lq6Xy8'
+    bs_key = 'arKeUGsZnvyyWSiWSrVQ'
+    url = f'http://{bs_user}:{bs_key}@hub-cloud.browserstack.com/wd/hub'
 
-    # context.driver.maximize_window()
+    options = Options()
+    bstack_options = {
+         'os': 'Windows',
+         'osVersion': '10',
+         'browserName': 'Chrome',
+         'sessionName': 'verify_high_demand_feature'
+    }
+    options.set_capability('bstack:options', bstack_options)
+    context.driver = webdriver.Remote(command_executor=url, options=options)
+
+    context.driver.maximize_window()
     context.driver.implicitly_wait(4)
     context.driver.wait = WebDriverWait(context.driver, 10)
 
