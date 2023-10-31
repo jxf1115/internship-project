@@ -7,13 +7,17 @@ from selenium.webdriver.chrome.options import Options
 from app.application import Application
 
 
+# Allure logging command below - Lesson 10 for more information
+# behave -f allure_behave.formatter:AllureFormatter -o test_results/features/tests/User_can_filter_high_demand.feature
+
+
 def browser_init(context):
     """
     :param context: Behave context
     """
-    # Normal non-headless
-    # service = Service(executable_path='./chromedriver')
-    # context.driver = webdriver.Chrome(service=service)
+    #Normal non-headless
+    service = Service(executable_path='./chromedriver')
+    context.driver = webdriver.Chrome(service=service)
 
 
     # Headless mode
@@ -32,19 +36,19 @@ def browser_init(context):
 
     ### BROWSERSTACK ###
 
-    bs_user = 'juliofernandez_Lq6Xy8'
-    bs_key = 'arKeUGsZnvyyWSiWSrVQ'
-    url = f'http://{bs_user}:{bs_key}@hub-cloud.browserstack.com/wd/hub'
+    #bs_user = 'juliofernandez_Lq6Xy8'
+    #bs_key = 'arKeUGsZnvyyWSiWSrVQ'
+    #url = f'http://{bs_user}:{bs_key}@hub-cloud.browserstack.com/wd/hub'
 
-    options = Options()
-    bstack_options = {
-         'os': 'Windows',
-         'osVersion': '10',
-         'browserName': 'Chrome',
-         'sessionName': 'verify_high_demand_feature'
-    }
-    options.set_capability('bstack:options', bstack_options)
-    context.driver = webdriver.Remote(command_executor=url, options=options)
+    # options = Options()
+    # bstack_options = {
+    #      'os': 'Windows',
+    #      'osVersion': '10',
+    #      'browserName': 'Chrome',
+    #      'sessionName': 'verify_high_demand_feature'
+    # }
+    # options.set_capability('bstack:options', bstack_options)
+    # context.driver = webdriver.Remote(command_executor=url, options=options)
 
     context.driver.maximize_window()
     context.driver.implicitly_wait(4)
