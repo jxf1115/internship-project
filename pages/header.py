@@ -5,7 +5,8 @@ from pages.base_page import Page
 
 
 class Header(Page):
-    FILTERS_BTN = (By.CSS_SELECTOR, 'a.filter-button.w-inline-block div.filter-text')
+    #FILTERS_BTN = (By.CSS_SELECTOR, 'a.filter-button.w-inline-block div.filter-text')
+    FILTERS_BTN = (By.CSS_SELECTOR, 'div.filter-button div.filter-text')  # Mobile version
     HIGH_DEMAND_BTN = (By.CSS_SELECTOR, 'div[wized="priorityStatusHighDemand"].tag-properties.margin-bottom-8 .tag-text-proparties')
 
     def click_filters(self):

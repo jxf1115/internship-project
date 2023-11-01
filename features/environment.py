@@ -4,6 +4,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.chrome.options import Options
 from app.application import Application
+from selenium import webdriver      # Mobile Emulation mode
 
 
 # Allure logging command below - Lesson 10 for more information
@@ -15,8 +16,8 @@ def browser_init(context):
     :param context: Behave context
     """
     #Normal non-headless
-    service = Service(executable_path='./chromedriver')
-    context.driver = webdriver.Chrome(service=service)
+    # service = Service(executable_path='./chromedriver')
+    # context.driver = webdriver.Chrome(service=service)
 
 
     # Headless mode
@@ -49,7 +50,17 @@ def browser_init(context):
     # options.set_capability('bstack:options', bstack_options)
     # context.driver = webdriver.Remote(command_executor=url, options=options)
 
-    context.driver.maximize_window()
+    # Mobile Emulation mode
+    mobile_emulation = {"deviceName": "iPhone 12 Pro"}
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_experimental_option("mobileEmulation", mobile_emulation)
+
+    service = Service(executable_path='./chromedriver')
+    context.driver = webdriver.Chrome(service=service)
+    context.driver = webdriver.Chrome(options=chrome_options)
+
+    # common parts
+    context.driver.maximize_window()  # comment out for headless mode
     context.driver.implicitly_wait(4)
     context.driver.wait = WebDriverWait(context.driver, 10)
 
